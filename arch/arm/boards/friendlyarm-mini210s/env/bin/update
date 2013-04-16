@@ -1,0 +1,3 @@
+#!/bin/sh
+ifup eth0
+cp /mnt/tftp/${global.hostname}/barebox.bin /dev/ram0 && go /dev/ram0

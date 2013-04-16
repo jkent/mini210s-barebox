@@ -1,0 +1,14 @@
+#!/bin/sh
+
+# MAC address if needed
+#ethaddr=12:34:56:78:9A:BC
+
+# ip setting (static/dhcp)
+ip=dhcp
+global.dhcp.vendor_id=barebox-${global.hostname}
+
+# static setup used if ip=static
+#ipaddr=192.168.0.100
+#netmask=255.255.255.0
+#gateway=192.168.0.1
+#serverip=192.168.0.10
