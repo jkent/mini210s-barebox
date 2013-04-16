@@ -38,7 +38,15 @@
 #include <mach/s3c-iomap.h>
 #include <mach/s3c-clocks.h>
 #include <mach/s3c-generic.h>
+#include <mach/s3c-busctl.h>
 
+/*
+ * dm9000 ethernet MAC/PHY
+ * nCS1, EINT7, 16-bit
+ */
+static struct dm9000_platform_data dm9000_data = {
+	.srom = 1,
+};
 
 static const unsigned pin_usage[] = {
 	/* TODO */
@@ -93,6 +101,20 @@ static int mini210s_console_init(void)
 }
 console_initcall(mini210s_console_init);
 
+static void mini210s_eth_init(void)
+{
+	uint32_t reg;
+
+	reg = readl(S3C_BWSCON);
+	reg &= ~0x000000f0;
+	reg |=  0x00000010;
+	writel(0x00050000, S3C_BANKCON1);
+	writel(reg, S3C_BWSCON);
+
+	add_dm9000_device(0, S3C_CS1_BASE + 0x1000, S3C_CS1_BASE + 0x400C,
+			IORESOURCE_MEM_16BIT, &dm9000_data);
+}
+
 static int mini210s_devices_init(void)
 {
 	int i;
@@ -105,6 +127,7 @@ static int mini210s_devices_init(void)
 		led_gpio_register(&leds[i]);
 	}
 
+	mini210s_eth_init();
 	armlinux_set_bootparams((void*)S3C_SDRAM_BASE + 0x100);
 	armlinux_set_architecture(MACH_TYPE_MINI210);
 

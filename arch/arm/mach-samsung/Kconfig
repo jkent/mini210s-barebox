@@ -142,6 +142,7 @@ config MACH_MINI210S
 	bool "Mini 210s"
 	select CPU_S5PV210
 	select S3C_SDRAM_INIT
+	select HAS_DM9000
 
 endchoice
 
