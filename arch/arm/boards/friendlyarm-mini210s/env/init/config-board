@@ -1,2 +1,3 @@
+global.autoboot_timeout=
 global.hostname=mini210s
 global.linux.bootargs.base="console=ttySAC0,115200"

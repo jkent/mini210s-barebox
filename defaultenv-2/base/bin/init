@@ -16,17 +16,12 @@ global editcmd=sedit
 [ -e /env/config-board ] && /env/config-board
 /env/config
 
-if [ -e /env/menu ]; then
-	echo -e -n "\nHit m for menu or any other key to stop autoboot: "
-else
-	echo -e -n "\nHit any key to stop autoboot: "
-fi
-
 # allow to stop the boot before execute the /env/init/*
 # but without waiting
 timeout -s -a -v key 0
 
 if [ "${key}" = "q" ]; then
+	echo -e "skipped /env/init/* execution"
 	exit
 fi
 
@@ -34,15 +29,23 @@ for i in /env/init/*; do
 	. $i
 done
 
-timeout -a $global.autoboot_timeout -v key
-autoboot="$?"
+if [ -n $global.autoboot_timeout ]; then
+	if [ -e /env/menu ]; then
+		echo -e -n "\nHit m for menu or any other key to stop autoboot: "
+	else
+		echo -e -n "\nHit any key to stop autoboot: "
+	fi
 
-if [ "${key}" = "q" ]; then
-	exit
-fi
+	timeout -a $global.autoboot_timeout -v key
+	autoboot="$?"
 
-if [ "$autoboot" = 0 ]; then
-	boot
+	if [ "${key}" = "q" ]; then
+		exit
+	fi
+
+	if [ "$autoboot" = 0 ]; then
+		boot
+	fi
 fi
 
 if [ -e /env/menu ]; then
