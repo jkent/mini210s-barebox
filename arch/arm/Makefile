@@ -165,6 +165,7 @@ board-$(CONFIG_MACH_EFIKA_MX_SMARTBOOK)		:= efika-mx-smartbook
 board-$(CONFIG_MACH_SABRESD)			:= freescale-mx6-sabresd
 board-$(CONFIG_MACH_REALQ7)			:= dmo-mx6-realq7
 board-$(CONFIG_MACH_ZEDBOARD)			:= avnet-zedboard
+board-$(CONFIG_MACH_MINI210S)			:= friendlyarm-mini210s
 
 machdirs := $(patsubst %,arch/arm/mach-%/,$(machine-y))
 

@@ -11,6 +11,7 @@ config ARCH_TEXT_BASE
 	default 0x31fc0000 if MACH_A9M2440
 	default 0x31fc0000 if MACH_A9M2410
 	default 0x23e00000 if MACH_TINY210
+	default 0x23e00000 if MACH_MINI210S
 
 config BOARDINFO
 	default "Mini 2440" if MACH_MINI2440
@@ -19,6 +20,7 @@ config BOARDINFO
 	default "Digi A9M2440" if MACH_A9M2440
 	default "Digi A9M2410" if MACH_A9M2410
 	default "Tiny 210" if MACH_TINY210
+	default "Mini 210s" if MACH_MINI210S
 
 config ARCH_BAREBOX_MAX_BARE_INIT_SIZE
 	hex
@@ -133,6 +135,11 @@ choice
 
 config MACH_TINY210
 	bool "Tiny 210"
+	select CPU_S5PV210
+	select S3C_SDRAM_INIT
+
+config MACH_MINI210S
+	bool "Mini 210s"
 	select CPU_S5PV210
 	select S3C_SDRAM_INIT
 
