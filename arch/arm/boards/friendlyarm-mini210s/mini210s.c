@@ -49,7 +49,10 @@ static struct dm9000_platform_data dm9000_data = {
 };
 
 static const unsigned pin_usage[] = {
-	/* TODO */
+	/* DM9000 */
+	MP011_CSn1,
+	MP016_OEn,
+	MP017_WEn,
 };
 
 static struct gpio_led leds[] = {
@@ -105,13 +108,20 @@ static void mini210s_eth_init(void)
 {
 	uint32_t reg;
 
+	/* Configure SROM bank1
+	 *
+	 * 16-bit, no wait
+	 * Tacs/Tacc/Tach: 0ck/6ck/0ck
+	 * Tcos/Tcoh:      0ck/0ck
+	 * Tacp/PMC:       0ck/Normal
+	 */
 	reg = readl(S3C_BWSCON);
 	reg &= ~0x000000f0;
 	reg |=  0x00000010;
-	writel(0x00050000, S3C_BANKCON1);
 	writel(reg, S3C_BWSCON);
+	writel(0x00050000, S3C_BANKCON1);
 
-	add_dm9000_device(0, S3C_CS1_BASE + 0x1000, S3C_CS1_BASE + 0x400C,
+	add_dm9000_device(0, S3C_CS1_BASE, S3C_CS1_BASE + 8,
 			IORESOURCE_MEM_16BIT, &dm9000_data);
 }
 
