@@ -20,30 +20,30 @@
 
 /* 3322222222221111111111
  * 10987654321098765432109876543210
- *                           ^^^^^^_ Bit offset
- *                      ^^^^^_______ Group Number
- *                  ^^^^____________ Function
- *                 ^________________ initial GPIO out value
- *                ^_________________ Pull up/down feature present
- *              ^^__________________ initial pull up/down setting
+ *                              ^^^_ Bit offset
+ *                       ^^^^^^^____ Group Number
+ *                   ^^^^___________ Function
+ *                  ^_______________ initial GPIO out value
+ *                 ^________________ Pull up/down feature present
+ *               ^^_________________ initial pull up/down setting
  */
 
-#define PIN(group,bit) ((group << 6) + bit)
-#define FUNC(x) (((x) & 0xf) << 11)
-#define GET_FUNC(x) (((x) >> 11) & 0xf)
-#define GET_GROUP(x) (((x) >> 6) & 0x1f)
-#define GET_BIT(x) ((x) & 0x3f)
-#define GET_GPIOVAL(x) (!!((x) & (1 << 15)))
-#define GPIO_OUT (1 << 11)
-#define GPIO_IN (0 << 11)
-#define GPIO_VAL(x) ((!!(x)) << 15)
+#define PIN(group,bit) ((group << 3) + bit)
+#define FUNC(x) (((x) & 0xf) << 10)
+#define GET_FUNC(x) (((x) >> 10) & 0xf)
+#define GET_GROUP(x) (((x) >> 3) & 0x7f)
+#define GET_BIT(x) ((x) & 0x7)
+#define GET_GPIOVAL(x) (!!((x) & (1 << 14)))
+#define GPIO_OUT (1 << 10)
+#define GPIO_IN (0 << 10)
+#define GPIO_VAL(x) ((!!(x)) << 14)
 #define PUD_MASK 0x3
-#define PUD (1 << 16)
-#define PUD_PRESENT(x) (!!((x) & (1 << 16)))
-#define DISABLE_PUD (0 << 17)
-#define ENABLE_PU (2 << 17)
-#define ENABLE_PD (1 << 17)
-#define GET_PUD(x) (((x) >> 17) & PUD_MASK)
+#define PUD (1 << 15)
+#define PUD_PRESENT(x) (!!((x) & (1 << 15)))
+#define DISABLE_PUD (0 << 16)
+#define ENABLE_PU (2 << 16)
+#define ENABLE_PD (1 << 16)
+#define GET_PUD(x) (((x) >> 16) & PUD_MASK)
 
 /*
  * To have a chance for simple GPIO manipulation routines
@@ -541,6 +541,134 @@
 #define GPG36_GPIO	(GPG36 | FUNC(0))
 #define GPG36_SD3_DATA3	(GPG36 | FUNC(2))
 #define GPG36_SD2_DATA7	(GPG36 | FUNC(3))
+
+/*
+ * Group H0: GPIO 0...7
+ */
+#define GPH00		(PIN(96,0) | PUD)
+#define GPH00_GPIO	(GPH00 | FUNC(0))
+#define GPH00_EXT_INT0	(GPH00 | FUNC(15))
+#define GPH01		(PIN(96,1) | PUD)
+#define GPH01_GPIO	(GPH01 | FUNC(0))
+#define GPH01_EXT_INT1	(GPH01 | FUNC(15))
+#define GPH02		(PIN(96,2) | PUD)
+#define GPH02_GPIO	(GPH02 | FUNC(0))
+#define GPH02_EXT_INT2	(GPH02 | FUNC(15))
+#define GPH03		(PIN(96,3) | PUD)
+#define GPH03_GPIO	(GPH03 | FUNC(0))
+#define GPH03_EXT_INT3	(GPH03 | FUNC(15))
+#define GPH04		(PIN(96,4) | PUD)
+#define GPH04_GPIO	(GPH04 | FUNC(0))
+#define GPH04_EXT_INT4	(GPH04 | FUNC(15))
+#define GPH05		(PIN(96,5) | PUD)
+#define GPH05_GPIO	(GPH05 | FUNC(0))
+#define GPH05_EXT_INT5	(GPH05 | FUNC(15))
+#define GPH06		(PIN(96,6) | PUD)
+#define GPH06_GPIO	(GPH06 | FUNC(0))
+#define GPH06_EXT_INT6	(GPH06 | FUNC(15))
+#define GPH07		(PIN(96,7) | PUD)
+#define GPH07_GPIO	(GPH07 | FUNC(0))
+#define GPH07_EXT_INT7	(GPH07 | FUNC(15))
+
+/*
+ * Group H1: GPIO 0...7
+ */
+#define GPH10		(PIN(97,0) | PUD)
+#define GPH10_GPIO	(GPH10 | FUNC(0))
+#define GPH10_EXT_INT8	(GPH10 | FUNC(15))
+#define GPH11		(PIN(97,1) | PUD)
+#define GPH11_GPIO	(GPH11 | FUNC(0))
+#define GPH11_EXT_INT9	(GPH11 | FUNC(15))
+#define GPH12		(PIN(97,2) | PUD)
+#define GPH12_GPIO	(GPH12 | FUNC(0))
+#define GPH12_EXT_INT10	(GPH12 | FUNC(15))
+#define GPH13		(PIN(97,3) | PUD)
+#define GPH13_GPIO	(GPH13 | FUNC(0))
+#define GPH13_EXT_INT11	(GPH13 | FUNC(15))
+#define GPH14		(PIN(97,4) | PUD)
+#define GPH14_GPIO	(GPH14 | FUNC(0))
+#define GPH14_EXT_INT12	(GPH14 | FUNC(15))
+#define GPH15		(PIN(97,5) | PUD)
+#define GPH15_GPIO	(GPH15 | FUNC(0))
+#define GPH15_EXT_INT13	(GPH15 | FUNC(15))
+#define GPH16		(PIN(97,6) | PUD)
+#define GPH16_GPIO	(GPH16 | FUNC(0))
+#define GPH16_EXT_INT14	(GPH16 | FUNC(15))
+#define GPH17		(PIN(97,7) | PUD)
+#define GPH17_GPIO	(GPH17 | FUNC(0))
+#define GPH17_EXT_INT15	(GPH17 | FUNC(15))
+
+/*
+ * Group H2: GPIO 0...7
+ */
+#define GPH20		(PIN(98,0) | PUD)
+#define GPH20_GPIO	(GPH20 | FUNC(0))
+#define GPH20_KP_COL0	(GPH20 | FUNC(3))
+#define GPH20_EXT_INT16	(GPH20 | FUNC(15))
+#define GPH21		(PIN(98,1) | PUD)
+#define GPH21_GPIO	(GPH21 | FUNC(0))
+#define GPH21_KP_COL1	(GPH21 | FUNC(3))
+#define GPH21_EXT_INT17	(GPH21 | FUNC(15))
+#define GPH22		(PIN(98,2) | PUD)
+#define GPH22_GPIO	(GPH22 | FUNC(0))
+#define GPH22_KP_COL2	(GPH22 | FUNC(3))
+#define GPH22_EXT_INT18	(GPH22 | FUNC(15))
+#define GPH23		(PIN(98,3) | PUD)
+#define GPH23_GPIO	(GPH23 | FUNC(0))
+#define GPH23_KP_COL3	(GPH23 | FUNC(3))
+#define GPH23_EXT_INT19	(GPH23 | FUNC(15))
+#define GPH24		(PIN(98,4) | PUD)
+#define GPH24_GPIO	(GPH24 | FUNC(0))
+#define GPH24_KP_COL4	(GPH24 | FUNC(3))
+#define GPH24_EXT_INT20	(GPH24 | FUNC(15))
+#define GPH25		(PIN(98,5) | PUD)
+#define GPH25_GPIO	(GPH25 | FUNC(0))
+#define GPH25_KP_COL5	(GPH25 | FUNC(3))
+#define GPH25_EXT_INT21	(GPH25 | FUNC(15))
+#define GPH26		(PIN(98,6) | PUD)
+#define GPH26_GPIO	(GPH26 | FUNC(0))
+#define GPH26_KP_COL6	(GPH26 | FUNC(3))
+#define GPH26_EXT_INT22	(GPH26 | FUNC(15))
+#define GPH27		(PIN(98,7) | PUD)
+#define GPH27_GPIO	(GPH27 | FUNC(0))
+#define GPH27_KP_COL7	(GPH27 | FUNC(3))
+#define GPH27_EXT_INT23	(GPH27 | FUNC(15))
+
+/*
+ * Group H3: GPIO 0...7
+ */
+#define GPH30		(PIN(99,0) | PUD)
+#define GPH30_GPIO	(GPH30 | FUNC(0))
+#define GPH30_KP_ROW0	(GPH30 | FUNC(3))
+#define GPH30_EXT_INT24	(GPH30 | FUNC(15))
+#define GPH31		(PIN(99,1) | PUD)
+#define GPH31_GPIO	(GPH31 | FUNC(0))
+#define GPH31_KP_ROW1	(GPH31 | FUNC(3))
+#define GPH31_EXT_INT25	(GPH31 | FUNC(15))
+#define GPH32		(PIN(99,2) | PUD)
+#define GPH32_GPIO	(GPH32 | FUNC(0))
+#define GPH32_KP_ROW2	(GPH32 | FUNC(3))
+#define GPH32_EXT_INT26	(GPH32 | FUNC(15))
+#define GPH33		(PIN(99,3) | PUD)
+#define GPH33_GPIO	(GPH33 | FUNC(0))
+#define GPH33_KP_ROW3	(GPH33 | FUNC(3))
+#define GPH33_EXT_INT27	(GPH33 | FUNC(15))
+#define GPH34		(PIN(99,4) | PUD)
+#define GPH34_GPIO	(GPH34 | FUNC(0))
+#define GPH34_KP_ROW4	(GPH34 | FUNC(3))
+#define GPH34_EXT_INT28	(GPH34 | FUNC(15))
+#define GPH35		(PIN(99,5) | PUD)
+#define GPH35_GPIO	(GPH35 | FUNC(0))
+#define GPH35_KP_ROW5	(GPH35 | FUNC(3))
+#define GPH35_EXT_INT29	(GPH35 | FUNC(15))
+#define GPH36		(PIN(99,6) | PUD)
+#define GPH36_GPIO	(GPH36 | FUNC(0))
+#define GPH36_KP_ROW6	(GPH36 | FUNC(3))
+#define GPH36_EXT_INT30	(GPH36 | FUNC(15))
+#define GPH37		(PIN(99,7) | PUD)
+#define GPH37_GPIO	(GPH37 | FUNC(0))
+#define GPH37_KP_ROW7	(GPH37 | FUNC(3))
+#define GPH37_EXT_INT31	(GPH37 | FUNC(15))
 
 /*
  * Group I - no GPIO

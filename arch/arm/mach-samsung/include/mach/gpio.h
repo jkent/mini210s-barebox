@@ -20,6 +20,7 @@
 # include <mach/iomux-s3c64xx.h>
 #endif
 #ifdef CONFIG_ARCH_S5PCxx
+# define ARCH_NR_GPIOS 1024
 # include <mach/iomux-s5pcxx.h>
 #endif
 

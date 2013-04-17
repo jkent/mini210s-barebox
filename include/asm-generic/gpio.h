@@ -1,7 +1,9 @@
 #ifndef __ASM_GENERIC_GPIO_H
 #define __ASM_GENERIC_GPIO_H
 
-#define ARCH_NR_GPIOS 256
+#ifndef ARCH_NR_GPIOS
+# define ARCH_NR_GPIOS 256
+#endif
 
 static inline int gpio_is_valid(int gpio)
 {
