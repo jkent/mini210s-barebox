@@ -104,4 +104,12 @@ config MMC_SPI_CRC_ON
 	help
 	  Enable CRC protection for transfers
 
+config MCI_SDHCI
+	bool "Standard SDHCI host"
+	depends on ARCH_S5PCxx
+	help
+	  Enable this entry to add support to read and write SD cards on a
+	  SD Standard Host Controller Interface as specified by the SD
+	  Association.
+
 endif

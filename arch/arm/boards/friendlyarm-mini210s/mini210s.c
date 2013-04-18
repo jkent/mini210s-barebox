@@ -34,6 +34,7 @@
 #include <led.h>
 #include <io.h>
 #include <nand.h>
+#include <sdhci.h>
 #include <asm/armlinux.h>
 #include <mach/s3c-iomap.h>
 #include <mach/s3c-clocks.h>
@@ -136,6 +137,9 @@ static int mini210s_devices_init(void)
 		gpio_direction_output(leds[i].gpio, leds[i].active_low);
 		led_gpio_register(&leds[i]);
 	}
+
+	add_sdhci_device(0, S3C_SDI0_BASE, NULL);
+	add_sdhci_device(2, S3C_SDI2_BASE, NULL);
 
 	mini210s_eth_init();
 	armlinux_set_bootparams((void*)S3C_SDRAM_BASE + 0x100);
