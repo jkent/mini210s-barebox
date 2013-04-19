@@ -19,6 +19,8 @@
 #include <driver.h>
 #include <mach/s3c64xx-iomap.h>
 
+struct s3c_sdhc_platform_data;
+
 static inline void s3c64xx_add_uart1(void)
 {
 	add_generic_device("s3c_serial", DEVICE_ID_DYNAMIC, NULL, S3C_UART1_BASE,
@@ -35,6 +37,25 @@ static inline void s3c64xx_add_uart3(void)
 {
 	add_generic_device("s3c_serial", DEVICE_ID_DYNAMIC, NULL, S3C_UART3_BASE,
 			S3C_UART3_SIZE, IORESOURCE_MEM, NULL);
+}
+
+static inline void s3c64xx_add_mci0(struct s3c_sdhc_platform_data *d)
+{
+	add_generic_device("esdhc_s3c64xx", 0, NULL, S3C_SDI0_BASE,
+			S3C_SDI0_SIZE, IORESOURCE_MEM, d);
+}
+
+static inline void s3c64xx_add_mci1(struct s3c_sdhc_platform_data *d)
+{
+	add_generic_device("esdhc_s3c64xx", 1, NULL, S3C_SDI1_BASE,
+			S3C_SDI1_SIZE, IORESOURCE_MEM, d);
+}
+
+/* note: this controller is special in its pin handling! */
+static inline void s3c64xx_add_mci2(struct s3c_sdhc_platform_data *d)
+{
+	add_generic_device("esdhc_s3c64xx", 2, NULL, S3C_SDI2_BASE,
+			S3C_SDI2_SIZE, IORESOURCE_MEM, d);
 }
 
 #endif /* INCLUDE_MACH_DEVICES_S3C64XX_H */

@@ -42,6 +42,8 @@ void s5p_init_dram_bank_lpddr(phys_addr_t base, uint32_t mc0, uint32_t mc1, int 
 void s5p_init_dram_bank_lpddr2(phys_addr_t base, uint32_t mc0, uint32_t mc1, int bus16);
 void s5p_init_dram_bank_ddr2(phys_addr_t base, uint32_t mc0, uint32_t mc1, int bus16);
 uint32_t s5p_get_memory_size(void);
+unsigned s3c_get_hsmmc_clk(int id);
+void s3c_set_hsmmc_clk(int id, int, unsigned);
 #endif
 
 #ifdef CONFIG_ARCH_S3C64xx
