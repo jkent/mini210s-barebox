@@ -39,6 +39,7 @@
 #include <mach/s3c-clocks.h>
 #include <mach/s3c-generic.h>
 #include <mach/s3c-busctl.h>
+#include <mach/s3c-esdhc.h>
 
 /*
  * dm9000 ethernet MAC/PHY
@@ -46,6 +47,28 @@
  */
 static struct dm9000_platform_data dm9000_data = {
 	.srom = 1,
+};
+
+static struct s3c_sdhc_platform_data esdhc0_data = {
+	.esdhc_pd.voltages = MMC_VDD_32_33 | MMC_VDD_33_34,
+	.esdhc_pd.host_caps = MMC_MODE_4BIT | MMC_MODE_HS | MMC_MODE_HS_52MHz,
+	.esdhc_pd.cd_type = ESDHC_CD_CONTROLLER,
+	.esdhc_pd.wp_type = ESDHC_WP_PERMANENT,
+	.esdhc_pd.f_max = 52000000,
+
+	.clk_src = 2,
+	.pin_strength = 1,
+	.pin_strength25 = 3,
+
+	.rx_delay_en = 1,
+	.rx_delay = 2,
+	.rx_delay_en25 = 1,
+	.rx_delay25 = 2,
+
+	.tx_delay_en = 1,
+	.tx_delay = 2,
+	.tx_delay_en25 = 1,
+	.tx_delay25 = 2,
 };
 
 static const unsigned pin_usage[] = {
@@ -136,6 +159,9 @@ static int mini210s_devices_init(void)
 		gpio_direction_output(leds[i].gpio, leds[i].active_low);
 		led_gpio_register(&leds[i]);
 	}
+
+	add_generic_device("esdhc_s3c64xx", 0, NULL, 0xEB000000,
+		0x100, IORESOURCE_MEM, &esdhc0_data);
 
 	mini210s_eth_init();
 	armlinux_set_bootparams((void*)S3C_SDRAM_BASE + 0x100);

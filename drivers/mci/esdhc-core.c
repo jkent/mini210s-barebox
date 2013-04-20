@@ -19,7 +19,7 @@
  * GNU General Public License for more details.
  */
 
-// #define DEBUG
+#define DEBUG
 
 #include <common.h>
 #include <init.h>

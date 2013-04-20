@@ -1,0 +1,7 @@
+#!/bin/sh
+mci0.probe=1
+mkdir /mnt/disk
+mount /dev/disk0.0 /mnt/disk
+ls /mnt/disk
+cp /env/bin/update /mnt/disk/update
+
