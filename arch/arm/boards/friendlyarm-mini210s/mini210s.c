@@ -49,6 +49,12 @@ static struct dm9000_platform_data dm9000_data = {
 	.srom = 1,
 };
 
+/* sdhci0 */
+static struct sdhci_platform_data sdhci0_data = {
+	.max_clk = 52000000,
+	.min_clk = 400000,
+};
+
 static const unsigned pin_usage[] = {
 	/* DM9000 */
 	MP011_CSn1,
@@ -138,8 +144,8 @@ static int mini210s_devices_init(void)
 		led_gpio_register(&leds[i]);
 	}
 
-	add_sdhci_device(0, S3C_SDI0_BASE, NULL);
-	add_sdhci_device(2, S3C_SDI2_BASE, NULL);
+	add_sdhci_device(0, S3C_SDI0_BASE, &sdhci0_data);
+	//add_sdhci_device(2, S3C_SDI2_BASE, NULL);
 
 	mini210s_eth_init();
 	armlinux_set_bootparams((void*)S3C_SDRAM_BASE + 0x100);
